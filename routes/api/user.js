@@ -1,6 +1,7 @@
 const express = require('express')
 const Router = express.Router()
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 //User model
 const User = ('../../models/User')
@@ -33,13 +34,22 @@ Router.post('/', (req, res) => {
                     newUser.password = hash
                     newUser.save()
                         .then(user => {
-                            res.json({
-                                user: {
-                                    id: user.id,
-                                    name: user.name,
-                                    email: user.name,
+
+                            jwt.sign(
+                                { id: user.id },
+                                process.env.jwtSecret,
+                                (e, token) => {
+                                    if (e) throw e
+                                    res.json({
+                                        token,
+                                        user: {
+                                            id: user.id,
+                                            name: user.name,
+                                            email: user.name,
+                                        }
+                                    })
                                 }
-                            })
+                            )
                         })
                 })
             })
