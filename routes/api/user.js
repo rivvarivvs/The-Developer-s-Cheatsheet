@@ -1,40 +1,49 @@
 const express = require('express')
 const Router = express.Router()
+const bcrypt = require('bcryptjs')
 
 //User model
 const User = ('../../models/User')
-
-//@route    GET api/user
-//@desc     Loads all users
-//@access   Public
-Router.get('/', (req, res) => {
-    Item.find()
-        .then(users => res.json(users))
-        .catch(e => res.status(400).json(`Err: ${e}`))
-})
 
 //@route    POST api/user
 //@desc     Create a new user
 //@access   Public
 Router.post('/', (req, res) => {
-    const newUser = new User({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email
-    })
+    const { name, email, password } = req.body
+    
+    if(!name || !email || !password) {
+        return res.status(400).json({ msg: 'Please enter all fields'})
+    }
 
-    newUser.save()
-        .then(i => res.json(i))
-        .catch(err => res.status(400).json(`Err: ${err}`))
-})
+    User.findOne({ email })
+        .then(user => {
+            if (user) {
+                return res.status(400).json({ msg: 'User already exists' })
+            }
 
-//@route    DELETE api/item/:id
-//@desc     Delete an user
-//@access   Public
-Router.delete('/:id', (req, res) => {
-    User.findById(req.params.id)
-        .then(user => user.remove().then(() => res.json({ sucess: true  })))
-        .catch(err => res.status(404).json({ success: false }))
+            const newUser = new User({
+                name, 
+                email,
+                password
+            })
+
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(newUser.password, salt, (e, hash) => {
+                    if (e) throw e
+                    newUser.password = hash
+                    newUser.save()
+                        .then(user => {
+                            res.json({
+                                user: {
+                                    id: user.id,
+                                    name: user.name,
+                                    email: user.name,
+                                }
+                            })
+                        })
+                })
+            })
+        })
 })
 
 module.exports = Router
