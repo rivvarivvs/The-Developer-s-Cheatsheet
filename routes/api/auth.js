@@ -9,6 +9,7 @@ const User = ('../../models/User')
 //@route    POST api/auth
 //@desc     Authenticates user
 //@access   Public
+
 Router.post("/", (req, res) => {
   const { email, password } = req.body;
 
