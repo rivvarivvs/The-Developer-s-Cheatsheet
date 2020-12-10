@@ -26,9 +26,13 @@ exports.getItem = (req, res, next) => {
 }
 
 exports.saveItem = (req, res, next) => {
+    const title = req.body.title
+    const body = req.body.body
+
     const newItem = new Item({
-        title: req.body.title,
-        body: req.body.body
+        title: title,
+        body: body ,
+        userId: req.user._id
     })
 
     newItem.save().then(i => res.json(i))
