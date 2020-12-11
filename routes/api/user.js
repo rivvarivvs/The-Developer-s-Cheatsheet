@@ -1,15 +1,14 @@
 const express = require('express')
 const Router = express.Router()
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 
 //User model
 const User = ('../../models/User')
 
-//@route    POST api/user
+//@route    POST api/user/register
 //@desc     Create a new user
 //@access   Public
-Router.post('/', (req, res) => {
+Router.post('/register', (req, res) => {
     const { name, email, password } = req.body
     
     if(!name || !email || !password) {
@@ -34,22 +33,12 @@ Router.post('/', (req, res) => {
                     newUser.password = hash
                     newUser.save()
                         .then(user => {
-
-                            jwt.sign(
-                                { id: user.id },
-                                process.env.jwtSecret,
-                                (e, token) => {
-                                    if (e) throw e
-                                    res.json({
-                                        token,
-                                        user: {
-                                            id: user.id,
-                                            name: user.name,
-                                            email: user.name,
-                                        }
+                                    user: {
+                                        id: user.id,
+                                        name: user.name,
+                                        email: user.name,
+                                    }
                                     })
-                                }
-                            )
                         })
                 })
             })
