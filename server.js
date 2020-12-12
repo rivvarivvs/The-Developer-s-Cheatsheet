@@ -1,10 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 const session = require("express-session");
 const { MongoDBStore } = require("connect-mongodb-session")(session);
+const csrf = require("csurf");
+const flash = require('connect-flash')
 
 require("dotenv").config();
+const isCsrf = require("middleware/crsf");
 
 const app = express();
 
@@ -28,11 +30,12 @@ app.use(
     store: store,
   })
 );
-app.use(cors());
+app.use(csrf());
+app.use(isCsrf())
+app.use(flash())
 app.use(express.json());
-app.use("api/item", require("./routes/api/item"));
-app.use("api/user", require("./routes/api/user"));
-app.use("api/auth", require("./routes/api/auth"));
+app.use("/item", require("./routes/item"));
+app.use("/auth", require("./routes/auth"));
 
 const port = process.env.PORT || 5000;
 

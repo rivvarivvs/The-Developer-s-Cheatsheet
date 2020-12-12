@@ -2,6 +2,19 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Item = require('../models/Item')
 
+
+exports.getAddItem = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
+    res.render('add', {
+        pageTitle: 'Add Cheatsheet',
+        path: '/add',
+        editing: false,
+        isAuthenticated: req.session.isLoggedIn
+    })
+}
+
 exports.getAllItems = (req, res, next) => {
     Item.find()
         .then(item => {
@@ -11,7 +24,6 @@ exports.getAllItems = (req, res, next) => {
             })
         }).catch(err => res.status(400).res.json({ msg: `Err: ${err}`}))
 }
-
 
 exports.getItem = (req, res, next) => {
     //Rendering items
