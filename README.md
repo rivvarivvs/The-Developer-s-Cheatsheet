@@ -29,7 +29,7 @@ If you need help or want to speak directly to the project manager, contact me at
 - [x] Database integration
 - [x] Skeleton of the MVC model
 - [x] API development
-- [x] Authentication implementation
+- [ ] Authentication implementation
 - [ ] Views and UI
 - [ ] Testing
 - [ ] From development to production code
