@@ -1,29 +1,11 @@
 import express from 'express';
 import { check } from 'express-validator/check';
-import { authController } from '../controllers/auth';
-import { isAuth } from '../middleware/auth';
+import { signin } from '../controllers/signin';
+import { signout } from '../controllers/signout';
+import { signup } from '../controllers/signup';
+import { requireAuth } from '../middleware/require-auth';
 
 const Router = express.Router();
-
-//@route    GET /auth/register
-//@desc     Renders register page
-//@access   Public
-Router.get('/api/register', authController.getSignup);
-
-//@route    GET /auth/login
-//@desc     Authenticates user
-//@access   Public
-Router.get('/api/login', authController.getLogin);
-
-//@route    GET /auth/reset
-//@desc     Reset password
-//@access   Public
-Router.get('/api/reset', authController.getReset);
-
-//@route    GET /auth/reset/:token
-//@desc     Renders a page to set a new password
-//@access   Public
-Router.get('/api/reset/:token', authController.getNewPassword);
 
 //@route    POST /auth/login
 //@desc     Authenticates user
@@ -39,13 +21,13 @@ Router.post(
 			.withMessage('Password should be atleast 5 characters')
 			.trim(),
 	],
-	authController.postLogin
+	signin
 );
 
 //@route    POST /auth/logout
 //@desc     Logs out
 //@access   Private
-Router.post('/api/logout', isAuth, authController.postLogout);
+Router.post('/api/logout', requireAuth, logout);
 
 //@route    POST /auth/register
 //@desc     Handles new register
@@ -74,17 +56,7 @@ Router.post(
 			})
 			.trim(),
 	],
-	authController.postSignup
+	signup
 );
-
-//@route    POST /auth/reset
-//@desc     Sends token for password reset
-//@access   Public
-Router.post('/reset', authController.postReset);
-
-//@route    POST /auth/new-password
-//@desc     Resets password
-//@access   Public
-Router.post('/new-password', authController.postNewPassword);
 
 module.exports = Router;
