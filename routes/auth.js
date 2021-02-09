@@ -8,28 +8,28 @@ const Router = express.Router();
 //@route    GET /auth/register
 //@desc     Renders register page
 //@access   Public
-Router.get('/register', authController.getSignup);
+Router.get('/api/register', authController.getSignup);
 
 //@route    GET /auth/login
 //@desc     Authenticates user
 //@access   Public
-Router.get('/login', authController.getLogin);
+Router.get('/api/login', authController.getLogin);
 
 //@route    GET /auth/reset
 //@desc     Reset password
 //@access   Public
-Router.get('/reset', authController.getReset);
+Router.get('/api/reset', authController.getReset);
 
 //@route    GET /auth/reset/:token
 //@desc     Renders a page to set a new password
 //@access   Public
-Router.get('/reset/:token', authController.getNewPassword);
+Router.get('/api/reset/:token', authController.getNewPassword);
 
 //@route    POST /auth/login
 //@desc     Authenticates user
 //@access   Public
 Router.post(
-	'/login',
+	'/api/login',
 	[
 		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
 		check('password', 'Please enter the correct passwords')
@@ -45,14 +45,13 @@ Router.post(
 //@route    POST /auth/logout
 //@desc     Logs out
 //@access   Private
-Router.post('/logout', isAuth, authController.postLogout);
+Router.post('/api/logout', isAuth, authController.postLogout);
 
 //@route    POST /auth/register
 //@desc     Handles new register
 //@access   Public
 Router.post(
-	//TO DO NAME FIELD VALIDATION
-	'/register',
+	'/api/register',
 	[
 		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
 		check('name', 'Please enter a valid email').not().isEmpty().trim(),
