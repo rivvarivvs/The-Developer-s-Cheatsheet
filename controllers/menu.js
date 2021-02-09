@@ -1,10 +1,8 @@
-const { validationResult } = require('express-validator/check');
-
-//Item model
-const Item = require('../models/Item');
+import { validationResult } from 'express-validator';
+import { Item } from '../models/Item';
 
 exports.getAddItem = (req, res, next) => {
-	if (!req.session.isLoggedIn) {
+	if (!req.session.currentUser) {
 		return res.redirect('/login');
 	}
 	res.render('add', {

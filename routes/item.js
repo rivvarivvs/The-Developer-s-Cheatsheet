@@ -1,8 +1,7 @@
-const express = require('express');
-const { body } = require('express-validator/check');
-
-const isAuth = require('../../middleware/auth');
-const itemController = require('../../controllers/menu');
+import express from 'express';
+import body from 'express-validator/check';
+import { requireAuth } from '../middleware/require-auth';
+import { itemController } from '../../controllers/menu';
 
 const Router = express.Router();
 
@@ -35,7 +34,7 @@ Router.put(
 		body('title').isAlphanumeric().isLength({ min: 3 }).trim(),
 		body('body').trim(),
 	],
-	isAuth,
+	requireAuth,
 	itemController.postUpdateItem
 );
 
@@ -45,13 +44,13 @@ Router.put(
 Router.post(
 	'/',
 	[body('title').isString().isLength({ min: 3 }).trim(), body('body').trim()],
-	isAuth,
+	requireAuth,
 	itemController.postAddItem
 );
 
 //@route    POST api/item/:id/delete
 //@desc     Delete an item
 //@access   Private
-Router.post('/:id/delete', isAuth, itemController.postDeleteProduct);
+Router.post('/:id/delete', requireAuth, itemController.postDeleteProduct);
 
 module.exports = Router;

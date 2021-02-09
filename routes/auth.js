@@ -1,10 +1,9 @@
-const express = require('express');
-const Router = express.Router();
-const { check } = require('express-validator/check');
+import express from 'express';
+import { check } from 'express-validator/check';
+import { authController } from '../controllers/auth';
+import { isAuth } from '../middleware/auth';
 
-//Auth controllers and middleware
-const authController = require('../controllers/auth');
-const isAuth = require('../middleware/auth');
+const Router = express.Router();
 
 //@route    GET /auth/register
 //@desc     Renders register page
