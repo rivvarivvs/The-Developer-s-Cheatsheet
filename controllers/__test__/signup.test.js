@@ -1,0 +1,72 @@
+import request from 'supertest';
+import { app } from '../../app';
+
+it('returns 400 with invalid email', async () => {
+	return request(app)
+		.post('/api/signup')
+		.send({
+			email: 'asdasd',
+			name: 'name',
+			password: 'password',
+		})
+		.expect(400);
+});
+
+it('returns 400 with invalid password', async () => {
+	return request(app)
+		.post('/api/signup')
+		.send({
+			email: 'test@test.com',
+			name: 'name',
+			password: '1',
+		})
+		.expect(400);
+});
+
+it('returns 400 with missing inputs', async () => {
+	return request(app).post('/api/signup').send({}).expect(400);
+});
+
+it('returns a 400 after trying to signup with an existing email', async () => {
+	await request(app)
+		.post('/api/signup')
+		.send({
+			email: 'test@test.com',
+			name: 'name',
+			password: 'password',
+		})
+		.expect(201);
+
+	await request(app)
+		.post('/api/signup')
+		.send({
+			email: 'test@test.com',
+			name: 'name2',
+			password: 'password2',
+		})
+		.expect(400);
+});
+
+it('returns a 201 after succesful signup', async () => {
+	await request(app)
+		.post('/api/signup')
+		.send({
+			email: 'test@test.com',
+			name: 'name',
+			password: 'password',
+		})
+		.expect(201);
+});
+
+it('sets up a cookie after successful signup', async () => {
+	const res = await request(app)
+		.post('/api/signup')
+		.send({
+			email: 'test@test.com',
+			name: 'name',
+			password: 'password',
+		})
+		.expect(201);
+
+	expect(res.get('Set-Cookie')).toBeDefined;
+});

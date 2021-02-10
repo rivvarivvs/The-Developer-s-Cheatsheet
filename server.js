@@ -1,6 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cookieSession = require('cookie-session');
+import express from 'express';
+import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
+import { currentUserRouter } from './routes/current-user';
 
 require('dotenv').config();
 
@@ -24,7 +25,8 @@ app.use(json());
 app.use(cookieSession({ signed: false }));
 
 app.use('/item', require('./routes/item'));
-app.use('/auth', require('./routes/auth'));
+app.use(authRouter);
+app.use(currentUserRouter);
 
 const port = process.env.PORT || 5000;
 

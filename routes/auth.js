@@ -7,7 +7,7 @@ import { requireAuth } from '../middleware/require-auth';
 
 const router = express.Router();
 
-//@route    POST /auth/login
+//@route    POST /api/signin
 //@desc     Authenticates user
 //@access   Public
 router.post(
@@ -23,12 +23,12 @@ router.post(
 	signin
 );
 
-//@route    POST /auth/logout
+//@route    POST /api/signout
 //@desc     Logs out
 //@access   Private
 router.post('/api/signout', requireAuth, signout);
 
-//@route    POST /auth/register
+//@route    POST /api/signup
 //@desc     Handles new register
 //@access   Public
 router.post(
@@ -54,4 +54,4 @@ router.post(
 	signup
 );
 
-module.exports = Router;
+export { router as authRouter };
