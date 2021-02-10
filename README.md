@@ -13,6 +13,7 @@ This webapp let's you post and access cheatsheets to languages, frameworks and l
 ![](https://img.shields.io/badge/database-MongoDB-yellowgreen)
 ![](https://img.shields.io/badge/code-JavaScript-lightblue)
 ![](https://img.shields.io/badge/code-NodeJS-white)
+![](https://img.shields.io/badge/code-ExpressJS-white)
 ![](https://img.shields.io/badge/Testing-Jest-orange)
 
 ## Installation
@@ -29,9 +30,9 @@ If you need help or want to speak directly to the project manager, contact me at
 - [x] Database integration
 - [x] Skeleton of the MVC model
 - [x] API development
-- [ ] Authentication implementation
+- [x] Authentication implementation
+- [ ] Testing (in progress)
 - [ ] Views and UI
-- [ ] Testing
 - [ ] From development to production code
 - [ ] Deployment
 
