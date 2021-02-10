@@ -1,10 +1,7 @@
-const { validationResult } = require('express-validator/check');
-
-//Item model
-const Item = require('../models/Item');
+import { validationResult } from 'express-validator';
 
 exports.getAddItem = (req, res, next) => {
-	if (!req.session.isLoggedIn) {
+	if (!req.session.currentUser) {
 		return res.redirect('/login');
 	}
 	res.render('add', {
@@ -40,39 +37,6 @@ exports.getItem = (req, res, next) => {
 		.catch((err) => console.log(err));
 };
 
-exports.postAddItem = (req, res) => {
-	const title = req.body.title;
-	const body = req.body.body;
-	const errors = validationResult(req);
-
-	if (!errors.isEmpty()) {
-		return res.status(422).render('api/item/:id/update', {
-			pageTitle: 'Edit',
-			path: 'api/item/:id/update',
-			hasError: true,
-			editing: false,
-			item: {
-				title,
-				body,
-			},
-			errorMessage: errors.array()[0].msg,
-		});
-	}
-
-	const newItem = new Item({
-		title: title,
-		body: body,
-		userId: req.user._id,
-	});
-
-	newItem
-		.save()
-		.then((i) => res.json(i))
-		.catch((e) => {
-			throw new Error();
-		});
-};
-
 exports.getUpdateItem = (req, res, next) => {
 	const editMode = req.query.edit;
 	if (!editMode) {
@@ -92,28 +56,4 @@ exports.getUpdateItem = (req, res, next) => {
 			errorMessage: null,
 		});
 	});
-};
-
-exports.postUpdateItem = (req, res, next) => {
-	const updatedTitle = req.body.title;
-	const updatedBody = req.body.body;
-
-	Item.findById(req.params.id).then((item) => {
-		item.title = updatedTitle;
-		item.body = updatedBody;
-
-		return item
-			.save()
-			.then((result) => {
-				console.log('Updated item');
-				res.redirect('/');
-			})
-			.catch((err) => console.log(err));
-	});
-};
-
-exports.postDeleteProduct = (req, res, next) => {
-	Item.findByIdAndRemove(req.params.id)
-		.then(() => console.log('Item removed'))
-		.catch((err) => res.status(400).json({ msg: `Err: ${err}` }));
 };

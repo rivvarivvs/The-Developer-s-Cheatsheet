@@ -1,62 +1,41 @@
-const express = require('express');
-const Router = express.Router();
-const { check } = require('express-validator/check');
+import express from 'express';
+import { check } from 'express-validator/check';
+import { signin } from '../controllers/signin';
+import { signout } from '../controllers/signout';
+import { signup } from '../controllers/signup';
+import { requireAuth } from '../middleware/require-auth';
 
-//Auth controllers and middleware
-const authController = require('../controllers/auth');
-const isAuth = require('../middleware/auth');
-
-//@route    GET /auth/register
-//@desc     Renders register page
-//@access   Public
-Router.get('/register', authController.getSignup);
-
-//@route    GET /auth/login
-//@desc     Authenticates user
-//@access   Public
-Router.get('/login', authController.getLogin);
-
-//@route    GET /auth/reset
-//@desc     Reset password
-//@access   Public
-Router.get('/reset', authController.getReset);
-
-//@route    GET /auth/reset/:token
-//@desc     Renders a page to set a new password
-//@access   Public
-Router.get('/reset/:token', authController.getNewPassword);
+const router = express.Router();
 
 //@route    POST /auth/login
 //@desc     Authenticates user
 //@access   Public
-Router.post(
-	'/login',
+router.post(
+	'/api/signin',
 	[
 		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
 		check('password', 'Please enter the correct passwords')
 			.isLength({ min: 5 })
-			.not()
-			.isEmpty()
+			.notEmpty()
 			.withMessage('Password should be atleast 5 characters')
 			.trim(),
 	],
-	authController.postLogin
+	signin
 );
 
 //@route    POST /auth/logout
 //@desc     Logs out
 //@access   Private
-Router.post('/logout', isAuth, authController.postLogout);
+router.post('/api/signout', requireAuth, signout);
 
 //@route    POST /auth/register
 //@desc     Handles new register
 //@access   Public
-Router.post(
-	//TO DO NAME FIELD VALIDATION
-	'/register',
+router.post(
+	'/api/signup',
 	[
 		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
-		check('name', 'Please enter a valid email').not().isEmpty().trim(),
+		check('name', 'Please enter a valid email').notEmpty().trim(),
 		check(
 			'password',
 			'Please enter a password with more than 5 characters composed of only numbers and letters'
@@ -64,29 +43,15 @@ Router.post(
 			.isLength({ min: 5 })
 			.isAlphanumeric()
 			.trim(),
-		check('confirmPassword')
-			.custom((value, { req }) => {
-				User.findOne({ email: value }).then((user) => {
-					if (user) {
-						return Promise.reject(
-							'Email already exists, pick a different one!'
-						);
-					}
-				});
-			})
+		check(
+			'confirmPassword',
+			'Please enter a password with more than 5 characters composed of only numbers and letters'
+		)
+			.isLength({ min: 5 })
+			.isAlphanumeric()
 			.trim(),
 	],
-	authController.postSignup
+	signup
 );
-
-//@route    POST /auth/reset
-//@desc     Sends token for password reset
-//@access   Public
-Router.post('/reset', authController.postReset);
-
-//@route    POST /auth/new-password
-//@desc     Resets password
-//@access   Public
-Router.post('/new-password', authController.postNewPassword);
 
 module.exports = Router;

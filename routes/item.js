@@ -1,57 +1,52 @@
-const express = require('express');
-const { body } = require('express-validator/check');
+import express from 'express';
+import body from 'express-validator/check';
 
-const isAuth = require('../../middleware/auth');
-const itemController = require('../../controllers/menu');
+import { requireAuth } from '../middleware/require-auth';
+import { itemController } from '../../controllers/menu';
+import { update } from '../controllers/update';
+import { show } from '../controllers/show';
+import { showAll } from '../controllers/showAll';
+import { postNew } from '../controllers/postNew';
+import { destroy } from '../controllers/destroy';
 
-const Router = express.Router();
-
-//@route    GET api/item/add
-//@desc     Renders submission page
-//@access   Public
-Router.get('/add', itemController.getAddItem);
+const router = express.Router();
 
 //@route    GET api/item
 //@desc     Loads all cheathsheets
 //@access   Public
-Router.get('/', itemController.getAllItems);
+router.get('/', showAll);
 
 //@route    GET api/item/:id
 //@desc     Gets a cheatsheet
 //@access   Public
-Router.get('/:id', itemController.getItem);
-
-//@route    GET api/item/:id/edit
-//@desc     Update a cheatsheet
-//@access   Private
-Router.get('/:id/edit', isAuth, itemController.getAllItems);
+router.get('/:id', show);
 
 //@route    POST api/item/:id/edit
 //@desc     Update a cheatsheet
 //@access   Private
-Router.put(
+router.put(
 	'/:id/edit',
 	[
 		body('title').isAlphanumeric().isLength({ min: 3 }).trim(),
 		body('body').trim(),
 	],
-	isAuth,
-	itemController.postUpdateItem
+	requireAuth,
+	update
 );
 
 //@route    POST api/item
 //@desc     Create an item
-//@access   Public
-Router.post(
+//@access   Private
+router.post(
 	'/',
 	[body('title').isString().isLength({ min: 3 }).trim(), body('body').trim()],
-	isAuth,
-	itemController.postAddItem
+	requireAuth,
+	postNew
 );
 
 //@route    POST api/item/:id/delete
 //@desc     Delete an item
 //@access   Private
-Router.post('/:id/delete', isAuth, itemController.postDeleteProduct);
+router.post('/:id/delete', requireAuth, destroy);
 
 module.exports = Router;
