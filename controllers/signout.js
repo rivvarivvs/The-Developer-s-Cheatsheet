@@ -1,5 +1,5 @@
-exports.signout((req, req) => {
+exports.signout = (req, req) => {
 	req.session = null;
 
 	res.send({});
-});
+};

@@ -1,6 +1,6 @@
 import User from '../models/User';
 
-exports.signin(async (req, res) => {
+exports.signin = async (req, res) => {
 	const { email, password } = req.body;
 
 	const user = await User.find({ email });
@@ -23,4 +23,4 @@ exports.signin(async (req, res) => {
 
 	req.session = userJwt;
 	res.status(200).send(user);
-});
+};

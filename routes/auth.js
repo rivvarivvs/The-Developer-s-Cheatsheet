@@ -5,19 +5,18 @@ import { signout } from '../controllers/signout';
 import { signup } from '../controllers/signup';
 import { requireAuth } from '../middleware/require-auth';
 
-const Router = express.Router();
+const router = express.Router();
 
 //@route    POST /auth/login
 //@desc     Authenticates user
 //@access   Public
-Router.post(
-	'/api/login',
+router.post(
+	'/api/signin',
 	[
 		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
 		check('password', 'Please enter the correct passwords')
 			.isLength({ min: 5 })
-			.not()
-			.isEmpty()
+			.notEmpty()
 			.withMessage('Password should be atleast 5 characters')
 			.trim(),
 	],
@@ -27,16 +26,16 @@ Router.post(
 //@route    POST /auth/logout
 //@desc     Logs out
 //@access   Private
-Router.post('/api/logout', requireAuth, logout);
+router.post('/api/signout', requireAuth, signout);
 
 //@route    POST /auth/register
 //@desc     Handles new register
 //@access   Public
-Router.post(
-	'/api/register',
+router.post(
+	'/api/signup',
 	[
 		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
-		check('name', 'Please enter a valid email').not().isEmpty().trim(),
+		check('name', 'Please enter a valid email').notEmpty().trim(),
 		check(
 			'password',
 			'Please enter a password with more than 5 characters composed of only numbers and letters'
@@ -44,16 +43,12 @@ Router.post(
 			.isLength({ min: 5 })
 			.isAlphanumeric()
 			.trim(),
-		check('confirmPassword')
-			.custom((value, { req }) => {
-				User.findOne({ email: value }).then((user) => {
-					if (user) {
-						return Promise.reject(
-							'Email already exists, pick a different one!'
-						);
-					}
-				});
-			})
+		check(
+			'confirmPassword',
+			'Please enter a password with more than 5 characters composed of only numbers and letters'
+		)
+			.isLength({ min: 5 })
+			.isAlphanumeric()
 			.trim(),
 	],
 	signup

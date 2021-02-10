@@ -1,56 +1,62 @@
 import express from 'express';
 import body from 'express-validator/check';
+
 import { requireAuth } from '../middleware/require-auth';
 import { itemController } from '../../controllers/menu';
+import { update } from '../controllers/update';
+import { show } from '../controllers/show';
+const postNew = require('../controllers/new');
+import { destroy } from '../controllers/delete';
 
-const Router = express.Router();
+const router = express.Router();
 
 //@route    GET api/item/add
 //@desc     Renders submission page
 //@access   Public
-Router.get('/add', itemController.getAddItem);
+router.get('/add', itemController.getAddItem);
 
 //@route    GET api/item
 //@desc     Loads all cheathsheets
 //@access   Public
-Router.get('/', itemController.getAllItems);
+router.get('/', itemController.getAllItems);
 
 //@route    GET api/item/:id
 //@desc     Gets a cheatsheet
 //@access   Public
-Router.get('/:id', itemController.getItem);
+router.get('/:id', show);
 
 //@route    GET api/item/:id/edit
 //@desc     Update a cheatsheet
 //@access   Private
-Router.get('/:id/edit', isAuth, itemController.getAllItems);
+router.get('/:id/edit', requireAuth, itemController.getAllItems);
 
 //@route    POST api/item/:id/edit
 //@desc     Update a cheatsheet
 //@access   Private
-Router.put(
+router.put(
 	'/:id/edit',
 	[
 		body('title').isAlphanumeric().isLength({ min: 3 }).trim(),
 		body('body').trim(),
 	],
 	requireAuth,
-	itemController.postUpdateItem
+	update
 );
 
 //@route    POST api/item
 //@desc     Create an item
-//@access   Public
-Router.post(
+//@access   Private
+router.post(
 	'/',
 	[body('title').isString().isLength({ min: 3 }).trim(), body('body').trim()],
 	requireAuth,
-	itemController.postAddItem
+	postNew
 );
 
 //@route    POST api/item/:id/delete
 //@desc     Delete an item
 //@access   Private
-Router.post('/:id/delete', requireAuth, itemController.postDeleteProduct);
+router.post('/:id/delete', requireAuth, destroy);
+router.post('/:id/delete', requireAuth);
 
 module.exports = Router;

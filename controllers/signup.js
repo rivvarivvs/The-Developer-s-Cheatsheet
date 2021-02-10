@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport(
 	})
 );
 
-exports.signup(async (req, res) => {
+exports.signup = (async (req, res) => {
 	const { name, email, password } = req.body;
 
 	const existingUser = await User.findOne({ email });
