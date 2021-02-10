@@ -5,30 +5,21 @@ import { requireAuth } from '../middleware/require-auth';
 import { itemController } from '../../controllers/menu';
 import { update } from '../controllers/update';
 import { show } from '../controllers/show';
-const postNew = require('../controllers/new');
-import { destroy } from '../controllers/delete';
+import { showAll } from '../controllers/showAll';
+import { postNew } from '../controllers/postNew';
+import { destroy } from '../controllers/destroy';
 
 const router = express.Router();
-
-//@route    GET api/item/add
-//@desc     Renders submission page
-//@access   Public
-router.get('/add', itemController.getAddItem);
 
 //@route    GET api/item
 //@desc     Loads all cheathsheets
 //@access   Public
-router.get('/', itemController.getAllItems);
+router.get('/', showAll);
 
 //@route    GET api/item/:id
 //@desc     Gets a cheatsheet
 //@access   Public
 router.get('/:id', show);
-
-//@route    GET api/item/:id/edit
-//@desc     Update a cheatsheet
-//@access   Private
-router.get('/:id/edit', requireAuth, itemController.getAllItems);
 
 //@route    POST api/item/:id/edit
 //@desc     Update a cheatsheet
@@ -57,6 +48,5 @@ router.post(
 //@desc     Delete an item
 //@access   Private
 router.post('/:id/delete', requireAuth, destroy);
-router.post('/:id/delete', requireAuth);
 
 module.exports = Router;

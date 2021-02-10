@@ -6,7 +6,7 @@ exports.postNew = async (req, res) => {
 	const item = await new Item({
 		title: title,
 		body: body,
-		userId: req.user._id,
+		userId: req.currentUser._id,
 	});
 
 	await item.save().catch((err) => {
