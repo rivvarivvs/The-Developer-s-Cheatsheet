@@ -1,7 +1,7 @@
-import request from 'supertest';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongoose from 'mongoose';
-import { app } from '../app';
+const request = require('supertest');
+const MongoMemoryServer = require('mongodb-memory-server');
+const mongoose = require('mongoose');
+const app = require('../server');
 
 beforeAll(async () => {
 	process.env.JWT_KEY = 'asdasd';
@@ -38,6 +38,7 @@ global.signin = async () => {
 		.post('/api/users/signup')
 		.send({
 			email,
+			name,
 			password,
 		})
 		.expect(201);

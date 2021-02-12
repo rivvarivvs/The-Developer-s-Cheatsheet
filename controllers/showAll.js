@@ -1,7 +1,9 @@
-import { Item } from '../models/Item';
+const Item = require('../models/Item');
 
-exports.showAll = async (req, res) => {
-	const items = await Ticket.find({});
+const showAll = async (req, res) => {
+	const items = await Item.find({});
 
 	res.send(items);
 };
+
+exports.showAll = showAll;

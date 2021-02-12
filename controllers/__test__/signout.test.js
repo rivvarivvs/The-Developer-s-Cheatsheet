@@ -1,5 +1,5 @@
-import request from 'supertest';
-import { app } from '../../app';
+const request = require('supertest');
+const app = require('../../server');
 
 it('clears the cookie after signing out', async () => {
 	await request(app)

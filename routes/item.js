@@ -1,52 +1,51 @@
-import express from 'express';
-import body from 'express-validator/check';
+const express = require('express');
+const { body } = require('express-validator');
 
-import { requireAuth } from '../middleware/require-auth';
-import { itemController } from '../../controllers/menu';
-import { update } from '../controllers/update';
-import { show } from '../controllers/show';
-import { showAll } from '../controllers/showAll';
-import { postNew } from '../controllers/postNew';
-import { destroy } from '../controllers/destroy';
+const requireAuth = require('../middleware/require-auth');
+const update = require('../controllers/update');
+const show = require('../controllers/show');
+const showAll = require('../controllers/showAll');
+const postNew = require('../controllers/postNew');
+const destroy = require('../controllers/destroy');
 
 const router = express.Router();
 
 //@route    GET api/item
 //@desc     Loads all cheathsheets
 //@access   Public
-router.get('/', showAll);
+router.get('/api/item', showAll.showAll);
 
 //@route    GET api/item/:id
 //@desc     Gets a cheatsheet
 //@access   Public
-router.get('/:id', show);
+router.get('/api/item/:id', show.show);
 
 //@route    POST api/item/:id/edit
 //@desc     Update a cheatsheet
 //@access   Private
-router.put(
-	'/:id/edit',
+router.post(
+	'/api/item/:id/edit',
 	[
 		body('title').isAlphanumeric().isLength({ min: 3 }).trim(),
 		body('body').trim(),
 	],
-	requireAuth,
-	update
+	requireAuth.requireAuth,
+	update.update
 );
 
 //@route    POST api/item
 //@desc     Create an item
 //@access   Private
 router.post(
-	'/',
+	'/api/item/',
 	[body('title').isString().isLength({ min: 3 }).trim(), body('body').trim()],
-	requireAuth,
-	postNew
+	requireAuth.requireAuth,
+	postNew.postNew
 );
 
 //@route    POST api/item/:id/delete
 //@desc     Delete an item
 //@access   Private
-router.post('/:id/delete', requireAuth, destroy);
+router.post('/api/item/:id/delete', requireAuth.requireAuth, destroy.destroy);
 
-module.exports = Router;
+module.exports = router;

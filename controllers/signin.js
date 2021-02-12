@@ -1,4 +1,4 @@
-import User from '../models/User';
+const User = require('../models/User');
 
 exports.signin = async (req, res) => {
 	const { email, password } = req.body;
@@ -8,8 +8,8 @@ exports.signin = async (req, res) => {
 		throw new Error('Invalid credentials');
 	}
 
-	const password = bcrypt.compare(password, user.password);
-	if (!password) {
+	const check = bcrypt.compare(password, user.password);
+	if (!check) {
 		throw new Error('Invalid credentials');
 	}
 

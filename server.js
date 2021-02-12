@@ -1,9 +1,12 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cookieSession from 'cookie-session';
-import { currentUserRouter } from './routes/current-user';
+const express = require('express');
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
 
 require('dotenv').config();
+
+const item = require('./routes/item');
+const auth = require('./routes/auth');
+const currentUser = require('./routes/current-user');
 
 const app = express();
 
@@ -21,12 +24,12 @@ try {
 
 //Setup initializations
 app.set('trust proxy', true);
-app.use(json());
+app.use(express.json());
 app.use(cookieSession({ signed: false }));
 
-app.use('/item', require('./routes/item'));
-app.use(authRouter);
-app.use(currentUserRouter);
+app.use(item);
+app.use(auth);
+app.use(currentUser);
 
 const port = process.env.PORT || 5000;
 

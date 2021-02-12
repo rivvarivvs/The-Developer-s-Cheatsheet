@@ -1,4 +1,4 @@
-import { Item } from '../models/Item';
+const Item = require('../models/Item');
 
 exports.destroy = async (req, res) => {
 	await Item.findByIdAndRemove(req.params.id)

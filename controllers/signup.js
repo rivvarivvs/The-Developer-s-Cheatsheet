@@ -1,7 +1,7 @@
-import bcrypt from 'bcryptjs';
-import nodemailer from 'nodemailer';
-import sendgridTransport from 'nodemailer-sendgrid-transport';
-import User from '../models/User'
+const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+const User = require('../models/User');
 
 const transporter = nodemailer.createTransport(
 	sendgridTransport({
@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport(
 	})
 );
 
-exports.signup = (async (req, res) => {
+exports.signup = async (req, res) => {
 	const { name, email, password } = req.body;
 
 	const existingUser = await User.findOne({ email });
@@ -25,7 +25,7 @@ exports.signup = (async (req, res) => {
 	bcrypt
 		.hash(password, 12)
 		.then((hashedPassword) => {
-			const newUser = await new User({
+			const newUser = new User({
 				name: name,
 				email: email,
 				password: hashedPassword,
@@ -50,4 +50,4 @@ exports.signup = (async (req, res) => {
 
 	// user created status
 	res.status(201).send(user);
-});
+};

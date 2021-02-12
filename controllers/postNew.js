@@ -1,4 +1,4 @@
-import { Item } from '../models/Item';
+const Item = require('../models/Item');
 
 exports.postNew = async (req, res) => {
 	const { title, body } = req.body;

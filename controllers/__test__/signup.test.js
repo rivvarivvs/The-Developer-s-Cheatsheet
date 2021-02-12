@@ -1,5 +1,5 @@
-import request from 'supertest';
-import { app } from '../../app';
+const request = require('supertest');
+const app = require('../../server');
 
 it('returns 400 with invalid email', async () => {
 	return request(app)

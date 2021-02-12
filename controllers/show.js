@@ -1,4 +1,4 @@
-import { Item } from '../models/Item';
+const Item = require('../models/Item');
 
 exports.show = async (req, res) => {
 	const item = await Item.findById(req.params.id);

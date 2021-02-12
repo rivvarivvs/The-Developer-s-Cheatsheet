@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export const currentUser = (req, res, next) => {
+exports.currentUser = (req, res, next) => {
 	if (!req.session.jwt) {
 		return next();
 	}

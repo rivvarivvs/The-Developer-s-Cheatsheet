@@ -1,9 +1,10 @@
-import express from 'express';
-import { check } from 'express-validator/check';
-import { signin } from '../controllers/signin';
-import { signout } from '../controllers/signout';
-import { signup } from '../controllers/signup';
-import { requireAuth } from '../middleware/require-auth';
+const express = require('express');
+const { body } = require('express-validator');
+
+const signin = require('../controllers/signin');
+const signout = require('../controllers/signout');
+const signup = require('../controllers/signup');
+const requireAuth = require('../middleware/require-auth');
 
 const router = express.Router();
 
@@ -13,20 +14,23 @@ const router = express.Router();
 router.post(
 	'/api/signin',
 	[
-		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
-		check('password', 'Please enter the correct passwords')
+		body('email')
+			.isEmail()
+			.normalizeEmail()
+			.withMessage('Please enter a valid email'),
+		body('password')
 			.isLength({ min: 5 })
 			.notEmpty()
 			.withMessage('Password should be atleast 5 characters')
 			.trim(),
 	],
-	signin
+	signin.signin
 );
 
 //@route    POST /api/signout
 //@desc     Logs out
 //@access   Private
-router.post('/api/signout', requireAuth, signout);
+router.post('/api/signout', requireAuth.requireAuth, signout.signout);
 
 //@route    POST /api/signup
 //@desc     Handles new register
@@ -34,24 +38,27 @@ router.post('/api/signout', requireAuth, signout);
 router.post(
 	'/api/signup',
 	[
-		check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
-		check('name', 'Please enter a valid email').notEmpty().trim(),
-		check(
-			'password',
-			'Please enter a password with more than 5 characters composed of only numbers and letters'
-		)
+		body('email')
+			.isEmail()
+			.normalizeEmail()
+			.withMessage('Please enter a valid email'),
+		body('name').notEmpty().trim().withMessage('Please enter a valid email'),
+		body('password')
 			.isLength({ min: 5 })
 			.isAlphanumeric()
-			.trim(),
-		check(
-			'confirmPassword',
-			'Please enter a password with more than 5 characters composed of only numbers and letters'
-		)
+			.trim()
+			.withMessage(
+				'Please enter a password with more than 5 characters composed of only numbers and letters'
+			),
+		body('confirmPassword')
 			.isLength({ min: 5 })
 			.isAlphanumeric()
-			.trim(),
+			.trim()
+			.withMessage(
+				'Please enter a password with more than 5 characters composed of only numbers and letters'
+			),
 	],
-	signup
+	signup.signup
 );
 
-export { router as authRouter };
+module.exports = router;
