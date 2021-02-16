@@ -1,7 +1,9 @@
 const request = require('supertest');
-const MongoMemoryServer = require('mongodb-memory-server');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
-const app = require('../server');
+const app = require('../app');
+
+let mongo;
 
 beforeAll(async () => {
 	process.env.JWT_KEY = 'asdasd';
@@ -35,7 +37,7 @@ global.signin = async () => {
 	const password = 'password';
 
 	const res = await request(app)
-		.post('/api/users/signup')
+		.post('/api/signup')
 		.send({
 			email,
 			name,

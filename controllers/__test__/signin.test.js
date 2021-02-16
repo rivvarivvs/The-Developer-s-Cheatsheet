@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../server');
+const app = require('../../app');
 
 it('fails when a email that does not exist is supplied', async () => {
 	await request(app)

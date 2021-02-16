@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../server');
+const app = require('../../app');
 
 it('clears the cookie after signing out', async () => {
 	await request(app)

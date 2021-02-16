@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 
 const transporter = nodemailer.createTransport(
 	sendgridTransport({
@@ -39,8 +40,8 @@ exports.signup = async (req, res) => {
 	// build the jwt token
 	const userJwt = jwt.sign(
 		{
-			_id: user._id,
-			email: user.email,
+			_id: existingUser._id,
+			email: existingUser.email,
 		},
 		process.env.JWT_KEY
 	);

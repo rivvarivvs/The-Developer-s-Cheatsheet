@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../server');
+const app = require('../../app');
 
 it('returns 400 with invalid email', async () => {
 	return request(app)
