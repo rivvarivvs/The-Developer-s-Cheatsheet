@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: backend-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: backend
   template:
     metadata:
       labels:
-        app: auth
+        app: backend
     spec:
       containers:
-        - name: auth
-          image: rivva/auth
+        - name: backend
+          image: rivva/backend
           env:
             - name: MONGO_URI
-              value: 'mongodb://auth-mongo-srv:27017/auth'
+              value: 'mongodb://auth-mongo-srv:27017/backend'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -27,12 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: backend-srv
 spec:
   selector:
-    app: auth
+    app: backend
   ports:
-    - name: auth
+    - name: backend
       protocol: TCP
       port: 3000
       targetPort: 3000
