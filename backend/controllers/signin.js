@@ -16,7 +16,7 @@ exports.signin = async (req, res) => {
 
 	const userJwt = jwt.sign(
 		{
-			_id: user._id,
+			id: user.id,
 			email: user.email,
 		},
 		process.env.JWT_KEY

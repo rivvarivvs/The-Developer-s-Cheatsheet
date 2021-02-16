@@ -23,31 +23,26 @@ exports.signup = async (req, res) => {
 	}
 
 	// hash the password and save the user to the db
-	bcrypt
-		.hash(password, 12)
-		.then((hashedPassword) => {
-			const newUser = new User({
-				name: name,
-				email: email,
-				password: hashedPassword,
-			});
-			return newUser.save();
-		})
-		.catch((err) => {
-			throw new Error('Unable to save user');
+	bcrypt.hash(password, 12, async (err, hash) => {
+		const newUser = await new User({
+			name: name,
+			email: email,
+			password: hash,
 		});
+		await newUser.save();
 
-	// build the jwt token
-	const userJwt = jwt.sign(
-		{
-			_id: existingUser._id,
-			email: existingUser.email,
-		},
-		process.env.JWT_KEY
-	);
+		// build the jwt token
+		const userJwt = jwt.sign(
+			{
+				_id: newUser._id,
+				email: newUser.email,
+			},
+			process.env.JWT_KEY
+		);
 
-	// assign it
-	req.session = userJwt;
+		// assign it
+		req.session = userJwt;
+	});
 
 	// user created status
 	res.status(201).send(user);
