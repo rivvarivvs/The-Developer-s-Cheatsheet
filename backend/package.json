@@ -2,16 +2,15 @@
   "name": "as",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js",
+    "start": "nodemon src/index.js",
     "test": "jest --watchAll --no-cache "
   },
   "jest": {
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
-      "./test/setup.js"
+      "./src/test/setup.js"
     ]
   },
   "author": "Riva Alves",

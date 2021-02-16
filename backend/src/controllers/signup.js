@@ -22,9 +22,11 @@ exports.signup = async (req, res) => {
 		throw new Error('User already exists');
 	}
 
+	let newUser;
+
 	// hash the password and save the user to the db
 	bcrypt.hash(password, 12, async (err, hash) => {
-		const newUser = await new User({
+		newUser = await new User({
 			name: name,
 			email: email,
 			password: hash,
@@ -45,5 +47,5 @@ exports.signup = async (req, res) => {
 	});
 
 	// user created status
-	res.status(201).send(user);
+	res.status(201).send(newUser);
 };
