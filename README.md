@@ -51,7 +51,7 @@ If you need help or want to speak directly to the project manager, contact me at
 - [x] API development
 - [x] Authentication implementation
 - [ ] Testing (in progress)
-- [ ] Views and UI
+- [ ] Views and UI (decided that I won't do UI)
 - [ ] From development to production code
 - [ ] Deployment
 
