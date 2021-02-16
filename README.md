@@ -18,8 +18,27 @@ This webapp let's you post and access cheatsheets to languages, frameworks and l
 
 ## Installation
 
-TODO: docker and k8s support so you can work without localhost access.
-At the moment, first you start the project with an `npm start` on the x directory. 
+To run this project in development mode, make sure to install skaffold and then run it:
+
+Windows:
+```
+choco install -y skaffold
+skaffold dev
+```
+
+MacOS:
+```
+curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-darwin-amd64 && \
+sudo install skaffold /usr/local/bin/
+skaffold dev
+```
+
+Linux:
+```
+curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+sudo install skaffold /usr/local/bin/
+skaffold dev
+```
 
 ## Support
 
