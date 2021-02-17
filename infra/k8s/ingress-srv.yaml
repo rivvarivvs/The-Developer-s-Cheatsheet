@@ -7,14 +7,10 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: xdeveloper.dev
+    - host: dev.dev
       http:
         paths:
-          - path: /api/backend/?(.*)
+          - path: /backend/?(.*)
             backend:
               serviceName: backend-srv
-              servicePort: 3000
-          - path: /?(.*)
-            backend:
-              serviceName: client-srv
               servicePort: 3000

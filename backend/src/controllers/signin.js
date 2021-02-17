@@ -23,6 +23,6 @@ exports.signin = async (req, res) => {
 		process.env.JWT_KEY
 	);
 
-	req.session = userJwt;
+	req.session = { userJwt };
 	res.status(200).send(user);
 };

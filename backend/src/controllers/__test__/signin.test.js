@@ -49,7 +49,7 @@ it('responds with a cookie when given valid credentials', async () => {
 
 	// send a post request to signin with valid credentials
 	await request(app)
-		.post('/api/signup')
+		.post('/api/signin')
 		.send({
 			email: 'test@test.com',
 			password: 'password',

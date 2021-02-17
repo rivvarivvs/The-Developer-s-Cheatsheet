@@ -13,5 +13,5 @@ it('clears the cookie after signing out', async () => {
 
 	const res = await request(app).post('/api/signout').send({}).expect(200);
 
-	expect(res.get('Set-Cookie')).toBeDefined;
+	expect(res.get('Set-Cookie')).not.toBeDefined();
 });

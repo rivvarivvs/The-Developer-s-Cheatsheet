@@ -18,7 +18,7 @@ beforeAll(async () => {
 	});
 });
 
-beforeEach(async () => {
+afterEach(async () => {
 	const collections = await mongoose.connection.db.collections();
 
 	for (let collection of collections) {

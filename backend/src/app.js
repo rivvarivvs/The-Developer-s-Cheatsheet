@@ -9,7 +9,7 @@ const currentUser = require('./routes/current-user');
 const app = express();
 
 //Setup initializations
-app.set('trust proxy', true);
+// app.set('trust proxy', false);
 app.use(express.json());
 app.use(
 	cookieSession({ signed: false, secure: process.env.NODE_ENV !== 'test' })

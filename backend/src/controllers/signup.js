@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
 		);
 
 		// assign it
-		req.session = userJwt;
+		req.session = { userJwt };
 	});
 
 	// user created status

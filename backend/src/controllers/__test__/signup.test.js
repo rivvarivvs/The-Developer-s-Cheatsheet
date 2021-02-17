@@ -18,7 +18,6 @@ it('returns 400 with invalid password', async () => {
 		.send({
 			email: 'test@test.com',
 			name: 'name',
-			password: '1',
 		})
 		.expect(400);
 });
