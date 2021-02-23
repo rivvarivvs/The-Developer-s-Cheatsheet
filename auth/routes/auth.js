@@ -4,10 +4,13 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const { jwt } = require('jsonwebtoken');
 
-const requireAuth = require('../middleware/require-auth');
-const currentUser = require('../middleware/current-user');
+const config = require('../../config');
+
+const requireAuth = require('../../middleware/require-auth');
+const currentUser = require('../../middleware/current-user');
 
 const router = express.Router();
+const { jwt_key } = config;
 
 //@route    POST /api/signin
 //@desc     Authenticates user
@@ -46,7 +49,7 @@ router.post(
 				id: user.id,
 				email: user.email,
 			},
-			process.env.JWT_KEY
+			jwt_key
 		);
 
 		// assign it to the current session
@@ -120,7 +123,7 @@ router.post(
 					_id: newUser._id,
 					email: newUser.email,
 				},
-				process.env.JWT_KEY
+				jwt_key
 			);
 
 			// assign it

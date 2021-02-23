@@ -1,17 +1,21 @@
 const mongoose = require('mongoose');
 const app = require('./app');
 
+const config = require('./config');
+
+const { db, jwt_key } = config;
+
 const start = async () => {
-	if (!process.env.MONGO_URI) {
+	if (!db) {
 		throw new Error('MONGO_URI must be defined');
 	}
 
-	if (!process.env.JWT_KEY) {
+	if (!jwt_key) {
 		throw new Error('JWT_KEY must be defined');
 	}
 
 	try {
-		await mongoose.connect(process.env.MONGO_URI, {
+		await mongoose.connect(db, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useCreateIndex: true,

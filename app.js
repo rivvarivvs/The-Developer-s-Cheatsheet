@@ -11,10 +11,7 @@ app.use(
 	cookieSession({ signed: false, secure: process.env.NODE_ENV !== 'test' })
 );
 
-app.use('/', require('./routes/auth'));
-
-app.all('*', () => {
-	throw new NotFoundError();
-});
+app.use('/users/', require('./auth/routes/auth'));
+app.use('/post/', require('./post/routes/item'));
 
 module.exports = app;

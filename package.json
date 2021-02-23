@@ -1,10 +1,10 @@
 {
-  "name": "auth",
+  "name": "app",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node index.js",
     "test": "jest --watchAll --no-cache "
   },
   "jest": {
@@ -21,6 +21,7 @@
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^6.9.3",
     "mongoose": "^5.11.17",
     "supertest": "^6.1.3"
