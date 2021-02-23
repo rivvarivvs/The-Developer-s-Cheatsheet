@@ -12,7 +12,6 @@ app.use(
 );
 
 app.use('/', require('./routes/auth'));
-app.use('/', require('./routes/current-user'));
 
 app.all('*', () => {
 	throw new NotFoundError();

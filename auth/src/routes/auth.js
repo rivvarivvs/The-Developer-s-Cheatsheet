@@ -2,10 +2,10 @@ const express = require('express');
 const { body } = require('express-validator');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const { jwt } = require('jsonwebtoken');
 
-const requireAuth = require('../middleware/require-auth')
-const currentUser = require('../middleware/current-user')
+const requireAuth = require('../middleware/require-auth');
+const currentUser = require('../middleware/current-user');
 
 const router = express.Router();
 
@@ -38,8 +38,8 @@ router.post(
 		// error handling
 		if (!user || !check) {
 			throw new Error('Invalid credentials');
-		} 
-		
+		}
+
 		// write the JWT payload
 		const userJwt = jwt.sign(
 			{
@@ -48,25 +48,24 @@ router.post(
 			},
 			process.env.JWT_KEY
 		);
-	
+
 		// assign it to the current session
 		req.session = { userJwt };
 
 		// return the 200 code and the user object
 		res.status(200).send(user);
-	};
+	}
 );
 
 //@route    POST /api/signout
 //@desc     Logs out
 //@access   Private
 router.post('/api/signout', requireAuth.requireAuth, (req, res) => {
-		// clear current session
-		req.session = null;
+	// clear current session
+	req.session = null;
 
-		res.status(200).send({});
-	}
-);
+	res.status(200).send({});
+});
 
 //@route    POST /api/signup
 //@desc     Handles new register
@@ -96,16 +95,16 @@ router.post(
 	],
 	async (req, res) => {
 		const { name, email, password } = req.body;
-	
+
 		const existingUser = await User.findOne({ email });
-	
+
 		// check if the user already exists
 		if (existingUser) {
 			throw new Error('User already exists');
 		}
-	
+
 		let newUser;
-	
+
 		// hash the password and save the user to the db
 		bcrypt.hash(password, 12, async (err, hash) => {
 			newUser = await new User({
@@ -114,7 +113,7 @@ router.post(
 				password: hash,
 			});
 			await newUser.save();
-	
+
 			// build the jwt token
 			const userJwt = jwt.sign(
 				{
@@ -123,14 +122,14 @@ router.post(
 				},
 				process.env.JWT_KEY
 			);
-	
+
 			// assign it
 			req.session = { userJwt };
 		});
-	
+
 		// send back 201 status with the new user obj
 		res.status(201).send(newUser);
-	};
+	}
 );
 
 //@route    GET /api/currentUser

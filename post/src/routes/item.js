@@ -13,7 +13,7 @@ router.get('/api/item', async (req, res) => {
 	const items = await Item.find({});
 
 	res.send(items);
-};);
+});
 
 //@route    GET api/item/:id
 //@desc     Gets a cheatsheet
@@ -26,8 +26,7 @@ router.get('/api/item/:id', async (req, res) => {
 	}
 
 	res.send(item);
-};
-);
+});
 
 //@route    POST api/item/:id/edit
 //@desc     Update a cheatsheet
@@ -41,20 +40,19 @@ router.post(
 	requireAuth.requireAuth,
 	async (req, res) => {
 		const { title, body } = req.body;
-	
+
 		const item = await Item.findById(req.params.id).then((item) => {
 			item.title = title;
 			item.body = body;
 		});
-	
+
 		await item
 			.save()
 			.then((result) => {
 				res.status(202).send({ item });
 			})
 			.catch((err) => console.log(err));
-	};
-	
+	}
 );
 
 //@route    POST api/item
@@ -66,28 +64,32 @@ router.post(
 	requireAuth.requireAuth,
 	async (req, res) => {
 		const { title, body } = req.body;
-	
+
 		const item = await new Item({
 			title: title,
 			body: body,
 			userId: req.currentUser._id,
 		});
-	
+
 		await item.save().catch((err) => {
 			throw new Error(err);
 		});
-	
+
 		return res.status(201).send({ item });
-	};
+	}
 );
 
 //@route    POST api/item/:id/delete
 //@desc     Delete an item
 //@access   Private
-router.post('/api/item/:id/delete', requireAuth.requireAuth, async (req, res) => {
-	await Item.findByIdAndRemove(req.params.id)
-		.then((result) => res.status(202))
-		.catch((err) => res.status(400).json({ msg: `Err: ${err}` }));
-};);
+router.post(
+	'/api/item/:id/delete',
+	requireAuth.requireAuth,
+	async (req, res) => {
+		await Item.findByIdAndRemove(req.params.id)
+			.then((result) => res.status(202))
+			.catch((err) => res.status(400).json({ msg: `Err: ${err}` }));
+	}
+);
 
 module.exports = router;
