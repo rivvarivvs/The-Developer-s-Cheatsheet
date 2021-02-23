@@ -8,8 +8,16 @@ build:
   local:
     push: false
   artifacts:
-    - image: rivva/backend
-      context: backend
+    - image: rivva/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: rivva/post
+      context: post
       docker:
         dockerfile: Dockerfile
       sync:

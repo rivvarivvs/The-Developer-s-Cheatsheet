@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: post-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: post
   template:
     metadata:
       labels:
-        app: auth
+        app: post
     spec:
       containers:
-        - name: auth
-          image: rivva/auth
+        - name: post
+          image: rivva/post
           env:
             - name: MONGO_URI
               value: 'mongodb://mongo-srv:27017/'
@@ -27,12 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: post-srv
 spec:
   selector:
-    app: auth
+    app: post
   ports:
-    - name: auth
+    - name: post
       protocol: TCP
       port: 3000
       targetPort: 3000

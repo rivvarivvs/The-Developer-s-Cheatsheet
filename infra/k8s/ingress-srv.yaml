@@ -7,10 +7,18 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: dev.dev
+    - host: cheatsheet.dev
       http:
         paths:
-          - path: /backend/?(.*)
+          - path: /user/?(.*)
             backend:
-              serviceName: backend-srv
+              serviceName: auth-srv
+              servicePort: 3000
+          - path: /post/?(.*)
+            backend:
+              serviceName: post-srv
+              servicePort: 3000
+          - path: /?(.*)
+            backend:
+              serviceName: client-srv
               servicePort: 3000
