@@ -60,7 +60,7 @@ router.post(
 			// build the jwt token
 			const userJwt = jwt.sign(
 				{
-					_id: newUser._id,
+					id: newUser.id,
 					email: newUser.email,
 				},
 				jwt_key

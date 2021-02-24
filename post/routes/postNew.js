@@ -19,7 +19,7 @@ router.post(
 		const item = await new Item({
 			title: title,
 			body: body,
-			userId: req.currentUser._id,
+			userId: req.currentUser.id,
 		});
 
 		await item.save().catch((err) => {
