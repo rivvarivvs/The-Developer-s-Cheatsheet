@@ -1,9 +1,9 @@
 const request = require('supertest');
-const app = require('../../app');
+const app = require('../../../app');
 
 it('returns 400 with invalid email', async () => {
 	return request(app)
-		.post('/api/signup')
+		.post('/users/signup')
 		.send({
 			email: 'asdasd',
 			name: 'name',
@@ -14,7 +14,7 @@ it('returns 400 with invalid email', async () => {
 
 it('returns 400 with invalid password', async () => {
 	return request(app)
-		.post('/api/signup')
+		.post('/users/signup')
 		.send({
 			email: 'test@test.com',
 			name: 'name',
@@ -27,17 +27,17 @@ it('returns 400 with missing inputs', async () => {
 });
 
 it('returns a 400 after trying to signup with an existing email', async () => {
-	await request(app)
-		.post('/api/signup')
+	const res = await request(app)
+		.post('/users/signup')
 		.send({
 			email: 'test@test.com',
 			name: 'name',
-			password: 'password',
+			password: '1',
 		})
-		.expect(201);
+		.expect(res).;
 
 	await request(app)
-		.post('/api/signup')
+		.post('/users/signup')
 		.send({
 			email: 'test@test.com',
 			name: 'name2',
@@ -48,7 +48,7 @@ it('returns a 400 after trying to signup with an existing email', async () => {
 
 it('returns a 201 after succesful signup', async () => {
 	await request(app)
-		.post('/api/signup')
+		.post('/users/signup')
 		.send({
 			email: 'test@test.com',
 			name: 'name',
@@ -59,7 +59,7 @@ it('returns a 201 after succesful signup', async () => {
 
 it('sets up a cookie after successful signup', async () => {
 	const res = await request(app)
-		.post('/api/signup')
+		.post('/users/signup')
 		.send({
 			email: 'test@test.com',
 			name: 'name',
