@@ -19,17 +19,18 @@ router.post(
 	async (req, res) => {
 		const { title, body } = req.body;
 
-		const item = await Item.findById(req.params.id).then((item) => {
-			item.title = title;
-			item.body = body;
+		const item = await Item.findById(req.params.id);
+
+		if (req.currentUser.id !== item.userId) {
+			return res.status(401).json({ msg: 'Not authorized' });
+		}
+
+		await item.set({
+			title,
+			body,
 		});
 
-		await item
-			.save()
-			.then((result) => {
-				res.status(202).send({ item });
-			})
-			.catch((err) => console.log(err));
+		res.status(202).send({ item });
 	}
 );
 

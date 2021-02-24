@@ -8,8 +8,8 @@ exports.requireAuth = (req, res, next) => {
 	}
 
 	try {
-		const req.currentUser = jwt.verify(req.session.jwt, jwt_key);
-		res.send({ currentUser });
+		req.currentUser = jwt.verify(req.session.jwt, jwt_key);
+		res.status(200);
 	} catch (err) {
 		console.log(err);
 	}
