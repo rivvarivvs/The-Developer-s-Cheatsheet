@@ -34,17 +34,17 @@ it('returns a 401 if the user is not the owner of the ticket', async () => {
 });
 
 it('returns 400 if the user provides invalid title or body', async () => {
-    const cookie = global.signin();
+	const cookie = global.signin();
 
-    const res = await request(app)
+	const res = await request(app)
 		.post('/post/api/item/')
 		.set('Cookie', cookie)
 		.send({
 			title: 'titletest',
 			body: 'ajsdoiahsd',
 		});
-    
-        await request(app)
+
+	await request(app)
 		.post(`/post/api/item/${res.body.id}/edit`)
 		.set('Cookie', cookie)
 		.send({
@@ -52,13 +52,13 @@ it('returns 400 if the user provides invalid title or body', async () => {
 			body: 'aiosdhoai',
 		})
 		.expect(400);
-    
-        await request(app)
+
+	await request(app)
 		.post(`/post/api/item/${res.body.id}/edit`)
 		.set('Cookie', cookie)
 		.send({
 			title: 'asodhasd',
-			body: ,
+			body: '',
 		})
 		.expect(400);
 });

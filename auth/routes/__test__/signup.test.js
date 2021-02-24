@@ -27,14 +27,11 @@ it('returns 400 with missing inputs', async () => {
 });
 
 it('returns a 400 after trying to signup with an existing email', async () => {
-	const res = await request(app)
-		.post('/users/signup')
-		.send({
-			email: 'test@test.com',
-			name: 'name',
-			password: '1',
-		})
-		.expect(res).;
+	const res = await request(app).post('/users/signup').send({
+		email: 'test@test.com',
+		name: 'name',
+		password: '1',
+	});
 
 	await request(app)
 		.post('/users/signup')

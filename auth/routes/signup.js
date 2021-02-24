@@ -67,7 +67,7 @@ router.post(
 			);
 
 			// assign it
-			req.session = { userJwt };
+			req.session.jwt = userJwt;
 
 			// send back 201 status with the new user obj
 			res.status(201).send(newUser);

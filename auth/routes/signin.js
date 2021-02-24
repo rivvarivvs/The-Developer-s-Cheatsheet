@@ -50,7 +50,7 @@ router.post(
 				);
 
 				// assign it to the current session
-				req.session = { userJwt };
+				req.session.jwt = userJwt;
 				console.log(req.session);
 
 				// return the 200 code and the user object

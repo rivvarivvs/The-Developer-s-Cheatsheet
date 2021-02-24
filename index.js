@@ -3,10 +3,10 @@ const app = require('./app');
 
 const config = require('./config');
 
-const { db, jwt_key } = config;
+const { db_test, jwt_key } = config;
 
 const start = async () => {
-	if (!db) {
+	if (!db_test) {
 		throw new Error('MONGO_URI must be defined');
 	}
 
@@ -15,7 +15,7 @@ const start = async () => {
 	}
 
 	try {
-		await mongoose.connect(db, {
+		await mongoose.connect(db_test, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useCreateIndex: true,

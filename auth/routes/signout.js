@@ -7,7 +7,7 @@ const router = express.Router();
 //@route    POST /api/signout
 //@desc     Logs out
 //@access   Private
-router.post('/signout', requireAuth.requireAuth, (req, res) => {
+router.post('/signout', (req, res) => {
 	// clear current session
 	req.session = null;
 

@@ -8,9 +8,7 @@ const app = express();
 // Setup initializations
 // app.set('trust proxy', false);
 app.use(bodyparser.json());
-app.use(
-	cookieSession({ signed: false, secure: process.env.NODE_ENV !== 'test' })
-);
+app.use(cookieSession({ signed: false }));
 
 app.use('/users', require('./auth/routes/signup'));
 app.use('/users', require('./auth/routes/signin'));

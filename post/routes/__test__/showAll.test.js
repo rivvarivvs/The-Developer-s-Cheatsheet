@@ -17,7 +17,7 @@ it('fetches a list of posts', async () => {
 	await createSheet();
 	await createSheet();
 
-	const res = await request(app).get('post/api/item').send().expect(200);
+	const res = await request(app).get('/post/api/item').send().expect(200);
 
 	expect(res.body.length).toEqual(3);
 });
