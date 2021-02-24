@@ -16,6 +16,10 @@ app.use('/users', require('./auth/routes/signup'));
 app.use('/users', require('./auth/routes/signin'));
 app.use('/users', require('./auth/routes/signout'));
 app.use('/users', require('./auth/routes/currentUser'));
-app.use('/post', require('./post/routes/item'));
+app.use('/post', require('./post/routes/destroy'));
+app.use('/post', require('./post/routes/postNew'));
+app.use('/post', require('./post/routes/show'));
+app.use('/post', require('./post/routes/showAll'));
+app.use('/post', require('./post/routes/update'));
 
 module.exports = app;
