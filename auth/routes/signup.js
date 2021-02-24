@@ -1,13 +1,12 @@
 const express = require('express');
 const { body } = require('express-validator');
-const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const config = require('../../config');
+const User = require('../models/User');
+const { jwt_key } = require('../../config');
 
 const router = express.Router();
-const { jwt_key } = config;
 
 //@route    POST /api/signup
 //@desc     Handles new register
