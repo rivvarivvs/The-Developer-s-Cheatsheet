@@ -1,0 +1,7 @@
+org: rivva
+app: developers-cheatsheet
+component: express
+name: express-starter
+
+inputs:
+  src: ./
