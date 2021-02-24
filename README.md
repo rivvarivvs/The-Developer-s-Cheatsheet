@@ -18,27 +18,13 @@ This webapp let's you post and access cheatsheets to languages, frameworks and l
 
 ## Installation
 
-To run this project in development mode, make sure to install skaffold and then run it:
+To run this project in development mode:
 
-Windows:
 ```
-choco install -y skaffold
-skaffold dev
-```
-
-MacOS:
-```
-curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-darwin-amd64 && \
-sudo install skaffold /usr/local/bin/
-skaffold dev
+npm install
+npm start
 ```
 
-Linux:
-```
-curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
-sudo install skaffold /usr/local/bin/
-skaffold dev
-```
 
 ## Support
 
@@ -50,9 +36,9 @@ If you need help or want to speak directly to the project manager, contact me at
 - [x] Skeleton of the MVC model
 - [x] API development
 - [x] Authentication implementation
-- [ ] Testing (in progress)
+- [x] Testing (in progress)
+- [x] From development to production code
 - [ ] Views and UI (decided that I won't do UI)
-- [ ] From development to production code
 - [ ] Deployment
 
 
