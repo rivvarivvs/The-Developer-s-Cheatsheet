@@ -10,6 +10,11 @@ const app = express();
 app.use(bodyparser.json());
 app.use(cookieSession({ signed: false }));
 
+// setting up views and static files dir
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/users', require('./auth/routes/signup'));
 app.use('/users', require('./auth/routes/signin'));
 app.use('/users', require('./auth/routes/signout'));
