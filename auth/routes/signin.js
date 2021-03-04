@@ -4,10 +4,9 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const config = require('../../config');
+const { JWT_KEY } = require('../../config');
 
 const router = express.Router();
-const { jwt_key } = config;
 
 //@route    POST /api/signin
 //@desc     Authenticates user
@@ -46,7 +45,7 @@ router.post(
 						id: user.id,
 						email: user.email,
 					},
-					jwt_key
+					JWT_KEY
 				);
 
 				// assign it to the current session

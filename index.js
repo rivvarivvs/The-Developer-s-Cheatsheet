@@ -3,19 +3,19 @@ const app = require('./app');
 
 const config = require('./config');
 
-const { db_test, jwt_key } = config;
+const { DB_TEST, JWT_KEY } = config;
 
 const start = async () => {
-	if (!db_test) {
+	if (!DB_TEST) {
 		throw new Error('MONGO_URI must be defined');
 	}
 
-	if (!jwt_key) {
+	if (!JWT_KEY) {
 		throw new Error('JWT_KEY must be defined');
 	}
 
 	try {
-		await mongoose.connect(db_test, {
+		await mongoose.connect(DB_TEST, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useCreateIndex: true,

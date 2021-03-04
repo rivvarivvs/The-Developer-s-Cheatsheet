@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
-const { jwt_key } = require('../../config');
+const { JWT_KEY } = require('../../config');
+const { sendMail } = require('../service/nodemailer');
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.post('/reset', async (req, res) => {
 	// assign token and token exp to the user
 	// save the user
 	// import the transporter and send email
+	await sendMail(subject, text);
 	// send a success status
 });
 
@@ -23,3 +25,5 @@ router.post('/reset/:token', async (req, res) => {
 	// save user
 	// import the transporter and send success email
 });
+
+module.exports = router;

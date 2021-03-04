@@ -1,31 +1,25 @@
 const nodemailer = require('nodemailer');
-const { nodemailer_user, nodemailer_password } = require('../../config');
+const { MAIL_USERNAME, MAIL_PASSWORD } = require('../../config');
 
-const transporter = () {
-	const client = nodemailer.createTransport('SMTP', {
-		service: 'SendGrid',
-		auth: {
-			user: nodemailer_user,
-			password: nodemailer_password,
-		},
-	});
-    
-    return client
-};
+const client = nodemailer.createTransport({
+	service: 'Sendinblue',
+	auth: {
+		user: MAIL_USERNAME,
+		pass: MAIL_PASSWORD,
+	},
+});
 
 const sendMail = async (email, subject, text) => {
-    const mailOptions = {
-        to: user.email,
-        from: email,
-        subject,
-        text
-    }
+	const mailOptions = {
+		to: email,
+		from: MAIL_USERNAME,
+		subject,
+		text,
+	};
 
-    await client.sendMail(mailOptions)
-}
+	await client.sendMail(mailOptions);
+};
 
 module.exports = {
-    transporter,
-    sendMail
-}
-
+	sendMail,
+};
