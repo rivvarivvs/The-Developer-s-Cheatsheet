@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const { MAIL_USERNAME, MAIL_PASSWORD } = require('../../config');
 
 const client = nodemailer.createTransport({
-	service: 'Sendinblue',
+	service: 'SendinBlue',
 	auth: {
 		user: MAIL_USERNAME,
 		pass: MAIL_PASSWORD,
