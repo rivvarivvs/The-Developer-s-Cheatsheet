@@ -7,7 +7,7 @@ The developer's cheatsheet
 
 This webapp let's you post and access cheatsheets to languages, frameworks and libraries that are community maintained.
 
-Features:
+#### Features:
 - [x] Database integration
 - [x] MVC model structure
 - [x] Authentication service
