@@ -78,8 +78,6 @@ router.post('/reset/:token', async (req, res) => {
 
 		res.status(202)
 	})
-
-	
 });
 
 module.exports = router;
