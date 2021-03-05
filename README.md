@@ -1,7 +1,6 @@
 ## Name
 
-The developer's cheatsheet
-// temporary name
+The Developer's Cheatsheet
 
 ## Description
 
@@ -21,11 +20,12 @@ This webapp let's you post and access cheatsheets to languages, frameworks and l
 
 ## Badges
 
-![](https://img.shields.io/badge/database-MongoDB-yellowgreen)
 ![](https://img.shields.io/badge/code-JavaScript-lightblue)
+![](https://img.shields.io/badge/database-MongoDB-yellowgreen)
 ![](https://img.shields.io/badge/code-NodeJS-white)
 ![](https://img.shields.io/badge/code-ExpressJS-white)
 ![](https://img.shields.io/badge/Testing-Jest-orange)
+![](https://img.shields.io/badge/Views-Jade-darkred)
 
 ## Installation
 
