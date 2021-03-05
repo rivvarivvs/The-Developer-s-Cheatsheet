@@ -7,9 +7,20 @@ The developer's cheatsheet
 
 This webapp let's you post and access cheatsheets to languages, frameworks and libraries that are community maintained.
 
+Features:
+- [x] Database integration
+- [x] MVC model structure
+- [x] Authentication service
+- [x] Reset password functionality
+- [x] Nodemailer integration to send emails
+- [x] CRUD API to index, post, update and destroy cheatsheets
+- [x] Testing
+
+- [ ] Views and UI (in progress)
+- [ ] Deployment
+
 ## Badges
 
-![](https://img.shields.io/badge/Repo%20Manager-GitHub-lightgreen)
 ![](https://img.shields.io/badge/database-MongoDB-yellowgreen)
 ![](https://img.shields.io/badge/code-JavaScript-lightblue)
 ![](https://img.shields.io/badge/code-NodeJS-white)
@@ -25,23 +36,18 @@ npm install
 npm start
 ```
 
-
 ## Support
 
-If you need help or want to speak directly to the project manager, contact me at rivvarivvs@gmail.com or dm me on my [twitter](https://twitter.com/rivva_a)
+To reach me about this project, send me an email or message me on my twitter account
 
-## Roadmap
+## Contributing
 
-- [x] Database integration
-- [x] Skeleton of the MVC model
-- [x] API development
-- [x] Authentication implementation
-- [x] Testing (in progress)
-- [x] From development to production code
-- [ ] Views and UI (decided that I won't do UI)
-- [ ] Deployment
+Any contributions should be made through PR. There are tests for every service inside the app and the code to run test is the standard npm run test
 
+## License
 
-## Project status
+MIT License Copyright (c) 2021 Riva Alves
+Project status
 
-Active
+The project is destined to stay a prototype.
+
