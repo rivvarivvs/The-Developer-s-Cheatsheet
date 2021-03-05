@@ -50,5 +50,5 @@ MIT License Copyright (c) 2021 Riva Alves
 
 ## Project status
 
-The project is destined to stay a prototype.
+Active, in development. The project is destined to stay a prototype.
 
