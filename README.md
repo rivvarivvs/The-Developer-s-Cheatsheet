@@ -47,7 +47,8 @@ Any contributions should be made through PR. There are tests for every service i
 ## License
 
 MIT License Copyright (c) 2021 Riva Alves
-Project status
+
+## Project status
 
 The project is destined to stay a prototype.
 
