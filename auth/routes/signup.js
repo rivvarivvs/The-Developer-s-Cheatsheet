@@ -46,7 +46,7 @@ router.post(
 		}
 
 		let user;
-		var salt = bcrypt.genSaltSync(12);
+		const salt = bcrypt.genSaltSync(12);
 
 		// hash the password and save the user to the db
 		await bcrypt.hash(password, salt, async (err, hash) => {
