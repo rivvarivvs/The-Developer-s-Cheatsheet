@@ -1,6 +1,6 @@
 ## Name and description
 
-**The Developer's Cheatsheet** let's you post and access cheatsheets to languages, frameworks and libraries that are community maintained.
+**The Developer's Cheatsheet** allows you to post and access cheatsheets to languages, frameworks, and libraries that are community maintained.
 
 ## Project Purpose and Goal
 
@@ -23,9 +23,9 @@ After some refactoring, I set as goals for this project to have:
 ![](https://img.shields.io/badge/code-NodeJS-white)
 ![](https://img.shields.io/badge/code-ExpressJS-white)
 
-I picked specifically the NodeJS and Express stack for its simplicity that abstracts a lot of technicalities while I could focus on the decision-process of the app and the basics of building a fully working app. 
+I picked specifically the NodeJS and Express stack for its simplicity that abstracts a lot of technicalities while I could focus on the decision-process of the app and the basics of building a fully working app.
 
-Through mongoose, the MongoDB database use is really smooth while offering the scalability that a NoSQL database has.
+Through mongoose, the MongoDB database use is smooth while offering the scalability that a NoSQL database has.
 
 ## Installation
 
