@@ -44,7 +44,7 @@ You read a ***lot*** about **clean code** and **reusability online**, but having
 
 ## Support
 
-To reach me about this project, send me an email or message me on my twitter account
+To reach me about this project, open an issue.
 
 ## Contributing
 
