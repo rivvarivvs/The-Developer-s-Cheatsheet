@@ -1,10 +1,6 @@
-## Name
+## Name and description
 
-The Developer's Cheatsheet
-
-## Description
-
-This webapp let's you post and access cheatsheets to languages, frameworks and libraries that are community maintained.
+**The Developer's Cheatsheet** let's you post and access cheatsheets to languages, frameworks and libraries that are community maintained.
 
 ## Project Purpose and Goal
 
